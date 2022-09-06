@@ -22,6 +22,7 @@ public class test1009 {
 				n = 10;
 			arr[i] = n;
 		}
+		
 		for(int i=0; i<T; i++)
 			System.out.println(arr[i]);
 	}
