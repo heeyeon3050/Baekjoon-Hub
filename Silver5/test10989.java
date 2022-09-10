@@ -1,8 +1,8 @@
-package SILVER5;
+package Silver5;
 
 import java.io.*;
 
-public class silver10989 {
+public class test10989 {
 	public static void main(String[] args) throws IOException{
 		  BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	      StringBuilder sb = new StringBuilder();
