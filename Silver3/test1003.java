@@ -26,6 +26,7 @@ public class test1003 {
 			}
 			arr[i] = fibonacci0[a]+" "+fibonacci1[a];
 		}
+		
 		for(int i=0; i<c; i++)
 			System.out.println(arr[i]);
 	}
