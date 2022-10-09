@@ -5,22 +5,26 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class test2525 {
+public class test2884 {
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		StringBuilder sb = new StringBuilder();
-		int A = Integer.parseInt(st.nextToken());
-		int B = Integer.parseInt(st.nextToken());
-		int C = Integer.parseInt(br.readLine());
+		int H = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
 		
-		int min = 60*A + B;
-		min += C;
+		if(M<45) {
+			M += 15;
+			if(H==0)
+				H = 23;
+			else
+				H -= 1;
+		}
 		
-		int hour = (min/60)%24;
-		int minute = min%60;
+		else
+			M -= 45;
 		
-		sb.append(hour).append(" ").append(minute);
+		sb.append(H).append(" ").append(M);
 		System.out.println(sb);
 	}
 }
