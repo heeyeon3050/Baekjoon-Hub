@@ -19,16 +19,21 @@ public class Main {
     static List<Node>[] list;
     static boolean[] visit;
     static int max = 0;
-    static int node;
+    static int node = 1;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
         int n = Integer.parseInt(br.readLine());
 
+        if(n == 1) {
+            System.out.println(0);
+            return;
+        }
+
         list = new ArrayList[n+1];
 
-        for(int i=0; i<=n; i++){
+        for(int i=1; i<=n; i++){
             list[i] = new ArrayList<>();
         }
 
