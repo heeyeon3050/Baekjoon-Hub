@@ -1,36 +1,51 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
+	static class Time implements Comparable<Time>{
+		int start, end;
 
-        int N = Integer.parseInt(br.readLine());
-        int[][] time = new int[N][2];
+		public Time(int start, int end){
+			this.start = start;
+			this.end = end;
+		}
 
-        for(int i=0; i<N; i++){
-            st = new StringTokenizer(br.readLine());
-            time[i][0] = Integer.parseInt(st.nextToken());
-            time[i][1] = Integer.parseInt(st.nextToken());
-        }
+		@Override
+		public int compareTo(Time o2){
+			if(this.end == o2.end){
+				return Integer.compare(this.start, o2.start);
+			} else
+				return Integer.compare(this.end, o2.end);
+		}
+	}
+	public static void main(String[] args) throws IOException{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
 
-        Arrays.sort(time,  Comparator.comparingInt((int[] o) -> o[1]).thenComparingInt(o -> o[0]));
+		int N = Integer.parseInt(br.readLine());
 
-        int cnt = 0;
-        int end = 0;
+		Time[] arr = new Time[N];
 
-        for(int i=0; i<N; i++){
-            if(end <= time[i][0]) {
-                cnt++;
-                end = time[i][1];
-            }
-        }
+		for(int i=0; i<N; i++){
+			st = new StringTokenizer(br.readLine());
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
+			arr[i] = new Time(a, b);
+		}
 
-        System.out.println(cnt);
-    }
+		Arrays.sort(arr);
+
+		int cnt = 0, i = 1;
+		int e_time = arr[0].end;
+
+		while(i < N){
+			if(e_time <= arr[i].start){
+				e_time = arr[i].end;
+				cnt++;
+			}
+			i++;
+		}
+
+		System.out.println(cnt+1);
+	}
 }
