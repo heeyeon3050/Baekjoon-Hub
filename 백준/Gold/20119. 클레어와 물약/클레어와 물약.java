@@ -3,7 +3,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Queue;
 import java.util.StringTokenizer;
@@ -48,42 +50,44 @@ public class Main {
 
 		l = Integer.parseInt(br.readLine());
 
-		int[] liquid = new int[l];
+		int[] ingredient = new int[l];
 
 		st = new StringTokenizer(br.readLine());
 
 		for(int i=0; i<l; i++){
-			liquid[i] = Integer.parseInt(st.nextToken());
+			ingredient[i] = Integer.parseInt(st.nextToken());
 		}
 
-		topologySort(liquid);
+		topologySort(ingredient);
 
 		System.out.println(sb);
 	}
 
-	public static void topologySort(int[] liquid){
-		List<Integer> result = new ArrayList<>();
+	public static void topologySort(int[] ingredient){
+		HashSet<Integer> set = new HashSet<>();
 		Queue<Integer> queue = new ArrayDeque<>();
 
 		for(int i=0; i<l; i++){
-			queue.offer(liquid[i]);
-			visit[liquid[i]] = true;
+			queue.offer(ingredient[i]);
+			set.add(ingredient[i]);
 		}
 
 		while (!queue.isEmpty()){
 			int now = queue.poll();
-			result.add(now);
 
 			for(int i : list[now]){
 				indegree[i]--;
-				if(indegree[i] == 0 && !visit[drug[i]]){
+				if(indegree[i] == 0 && !set.contains(drug[i])){
 					queue.offer(drug[i]);
-					visit[drug[i]] = true;
+					set.add(drug[i]);
 				}
 			}
 		}
 
+		List<Integer> result = new ArrayList<>(set);
+
 		Collections.sort(result);
+
 		sb.append(result.size()).append("\n");
 
 		for(int i : result){
