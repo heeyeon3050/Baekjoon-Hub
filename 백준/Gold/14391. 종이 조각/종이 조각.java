@@ -24,11 +24,11 @@ public class Main {
 			}
 		}
 
-		dfs(0, 0, 0);
+		dfs(0, 0);
 		System.out.println(answer);
 	}
 
-	public static void dfs(int depth, int num, int sum){
+	public static void dfs(int depth, int sum){
 		if(depth == n*m){
 			answer = Math.max(sum, answer);
 			return;
@@ -38,12 +38,13 @@ public class Main {
 		int y = depth % m;
 
 		if(visit[x][y])
-			dfs(depth+1, num, sum);
+			dfs(depth+1, sum);
 		else {
 			//자기자신만 자르는 경우
+			int num = 0;
 			visit[x][y] = true;
 			num = num*10 + arr[x][y];
-			dfs(depth+1, 0, sum+num);
+			dfs(depth+1, sum+num);
 
 			//세로로 자르는 경우
 			int i, temp = num;
@@ -52,7 +53,7 @@ public class Main {
 					break;
 				visit[i][y] = true;
 				temp = temp*10 + arr[i][y];
-				dfs(depth+1, 0, sum+temp);
+				dfs(depth+1, sum+temp);
 			}
 
 			for(int j=x+1; j<i; j++)
@@ -65,7 +66,7 @@ public class Main {
 					break;
 				visit[x][i] = true;
 				temp = temp*10 + arr[x][i];
-				dfs(depth+i-y+1, 0, sum+temp);
+				dfs(depth+i-y+1, sum+temp);
 			}
 
 			for(int j=y+1; j<i; j++)
