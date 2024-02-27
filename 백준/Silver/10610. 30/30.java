@@ -23,7 +23,6 @@ public class Main {
 			int num = charArr[i] - '0';
 			sum += num;
 			sb.append(num);
-			
 		}
 				
 		// 30의 배수인지 판단하기 위한 조건 생성
