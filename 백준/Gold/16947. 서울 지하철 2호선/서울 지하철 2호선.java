@@ -29,7 +29,6 @@ public class Main {
         visit = new boolean[N + 1];
         cycle = new boolean[N + 1];
 
-        // Cycle 여부 확인 수행
         for(int i = 1; i <= N; i++){
             if(isCycle(i, -1, i)){ //싸이클이 있다면 멈춤
                 break;
