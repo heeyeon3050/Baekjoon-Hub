@@ -26,6 +26,7 @@ public class Main {
 		long start = 0;
 		long end = height[height.length - 1];
 		long answer = 0;
+        
 		while (start < end) {
 			mid = (start + end) / 2;
 
