@@ -17,6 +17,7 @@ public class Main {
         arr = new int[n+1][n+1];
         visit = new boolean[n+1];
         sum = 0;
+        
         for(int i=1; i<=n; i++){
             st = new StringTokenizer(br.readLine());
             for(int j=1; j<=n; j++){
