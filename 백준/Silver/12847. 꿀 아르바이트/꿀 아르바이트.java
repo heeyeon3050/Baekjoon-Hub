@@ -9,11 +9,11 @@ public class Main {
 		int n = Integer.parseInt(st.nextToken());
 		int m = Integer.parseInt(st.nextToken());
 
-		long[] arr = new long[n];
+		int[] arr = new int[n];
 
 		st = new StringTokenizer(br.readLine());
 		for(int i=0; i<n; i++){
-			arr[i] = Long.parseLong(st.nextToken());
+			arr[i] = Integer.parseInt(st.nextToken());
 		}
 
 		long sum = 0;
