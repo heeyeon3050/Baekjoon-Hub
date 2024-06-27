@@ -2,6 +2,9 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
+	static int[] dx = {1, 0, -1, 0};
+	static int[] dy = {0, 1, 0, -1};
+
 	static int r, c, k;
 	static String[][] arr;
 	static int answer = 0;
@@ -22,28 +25,28 @@ public class Main {
 			arr[i] = br.readLine().split("");
 		}
 
+		visit[r-1][0] = true;
 		dfs(r-1, 0, 1);
 		System.out.println(answer);
 	}
 
 	public static void dfs(int x, int y, int cnt){
-		if(x < 0 || x >= r || y < 0 || y >= c || visit[x][y] || arr[x][y].equals("T")){
-			return;
-		}
-
 		if(x == 0 && y == c-1){
 			if(cnt == k)
 				answer++;
 			return;
 		}
 
-		visit[x][y] = true;
+		for(int i=0; i<4; i++){
+			int nx = x + dx[i];
+			int ny = y + dy[i];
 
-		dfs(x+1, y, cnt+1);
-		dfs(x-1, y, cnt+1);
-		dfs(x, y+1, cnt+1);
-		dfs(x, y-1, cnt+1);
+			if(nx < 0 || nx >= r || ny < 0 || ny >= c || visit[nx][ny] || arr[nx][ny].equals("T"))
+				continue;
 
-		visit[x][y] = false;
+			visit[nx][ny] = true;
+			dfs(nx, ny, cnt+1);
+			visit[nx][ny] = false;
+		}
 	}
 }
