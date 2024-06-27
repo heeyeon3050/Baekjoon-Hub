@@ -26,9 +26,10 @@ public class Main {
 
 		for(int i=0; i<r; i++){
 			for(int j=0; j<c; j++){
-				if(!arr[i][j].equals("#") && !visit[i][j])
+				if(!arr[i][j].equals("#") && !visit[i][j]) {
 					visit[i][j] = true;
 					bfs(i, j);
+				}
 			}
 		}
 		System.out.println(total_sheep + " " + total_wolf);
@@ -40,6 +41,12 @@ public class Main {
 
 		int sheep = 0;
 		int wolf = 0;
+
+		if(arr[x][y].equals("o"))
+			sheep++;
+		else if(arr[x][y].equals("v"))
+			wolf++;
+
 		while(!queue.isEmpty()){
 			int size = queue.size();
 
