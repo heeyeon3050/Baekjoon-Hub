@@ -1,62 +1,75 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-	static int N;
-	static int arr[][];
-	static int dx[] = {0, 0, 1, -1};
-	static int dy[] = {1, -1, 0, 0};
-	static boolean visit[][];
-	static ArrayList<Integer> list;
-	static int cnt = 1;
+	static int[] dx = {1, 0, -1, 0};
+	static int[] dy = {0, 1, 0, -1};
+	static int n;
+	static int[][] arr;
+	static boolean[][] visit;
+
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-		N = Integer.parseInt(br.readLine());
-		arr = new int [N][N];
-		visit = new boolean[N][N];
-		
-		for(int i=0; i<N; i++) {
+
+		n = Integer.parseInt(br.readLine());
+
+		arr = new int[n][n];
+		visit = new boolean[n][n];
+
+		for(int i=0; i<n; i++){
 			String str = br.readLine();
-			for(int j=0; j<N; j++)
-				arr[i][j] = str.charAt(j)-'0';
+			int size = str.length();
+			for(int j=0; j<size; j++){
+				arr[i][j] = str.charAt(j) - '0';
+			}
 		}
-		
-		list = new ArrayList<>();
-		for(int i=0; i<N; i++) {
-			for(int j=0; j<N; j++) {
-				if(arr[i][j]==1 && !visit[i][j]) {
-					cnt = 1;
-					dfs(i, j);
-					list.add(cnt);
+
+		List<Integer> list = new ArrayList<>();
+		for(int i=0; i<n; i++){
+			for(int j=0; j<n; j++){
+				if(arr[i][j] == 1){
+					arr[i][j] = 0;
+					list.add(bfs(i, j));
 				}
 			}
 		}
+		sb.append(list.size()).append("\n");
+
 		Collections.sort(list);
-		sb.append(list.size() + "\n");
-		for(int i : list) {
-			sb.append(i + "\n");
+		for(int l : list){
+			sb.append(l).append("\n");
 		}
+
 		System.out.println(sb);
 	}
-	
-	public static void dfs(int x, int y) {
-		visit[x][y] = true;
-		
-		//4방향 확인
-		for(int i=0; i<4; i++) {
-			int nx = x + dx[i];
-			int ny = y + dy[i];
-			
-			if(nx>=0 && ny>=0 && nx<N && ny<N) {
-				if(arr[nx][ny]==1 && !visit[nx][ny]) {
-					cnt++;
-					dfs(nx, ny);
+
+	public static int bfs(int x, int y){
+		Queue<int[]> queue = new ArrayDeque<>();
+		queue.add(new int[]{x, y});
+
+		int cnt = 1;
+		while(!queue.isEmpty()){
+			int size = queue.size();
+
+			for(int i=0; i<size; i++){
+				int[] now = queue.poll();
+
+				for(int j=0; j<4; j++){
+					int nx = now[0] + dx[j];
+					int ny = now[1] + dy[j];
+
+					if(nx < 0 || nx >= n || ny < 0 || ny >= n)
+						continue;
+
+					if(arr[nx][ny] == 1) {
+						arr[nx][ny] = 0;
+						queue.add(new int[]{nx, ny});
+						cnt++;
+					}
 				}
 			}
 		}
+		return cnt;
 	}
 }
