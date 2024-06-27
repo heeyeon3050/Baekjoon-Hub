@@ -1,34 +1,29 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-	static int n,m;
-	static Long[] arr;
 	public static void main(String[] args) throws IOException {
-
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 
-		n = Integer.parseInt(st.nextToken());
-		m = Integer.parseInt(st.nextToken());
+		int n = Integer.parseInt(st.nextToken());
+		int m = Integer.parseInt(st.nextToken());
 
-		arr = new Long[n];
+		long[] arr = new long[n];
 
 		st = new StringTokenizer(br.readLine());
-		for(int i=0; i<n; i++) {
-			arr[i]= Long.parseLong(st.nextToken());
+		for(int i=0; i<n; i++){
+			arr[i] = Long.parseLong(st.nextToken());
 		}
 
-		long sum =0;
+		long sum = 0;
 		for(int i=0; i<m; i++){
 			sum += arr[i];
 		}
 
 		long max = sum;
-		for(int j=m; j<n; j++) {
-			sum += arr[j] - arr[j-m];
+		for(int i=m; i<n; i++){
+			sum += arr[i] - arr[i-m];
 			max=Math.max(max, sum);
 		}
 
