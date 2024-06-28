@@ -16,12 +16,13 @@ public class Main {
 
 		int[] arr = new int[n];
 		int[] temp = new int[n];
-		
+
 		st = new StringTokenizer(br.readLine());
 		for(int i=0; i<n; i++){
 			arr[i] = Integer.parseInt(st.nextToken());
-			temp[i] = arr[i];
 		}
+		
+		temp = arr.clone();
 
 		Arrays.sort(arr);
 
@@ -33,7 +34,7 @@ public class Main {
 				map.put(arr[i], num++);
 			}
 		}
-		
+
 		for(int i=0; i<n; i++){
 			sb.append(map.get(temp[i]) + " ");
 		}
