@@ -7,45 +7,40 @@ import java.util.StringTokenizer;
 public class Main {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st;
+		StringTokenizer st = new StringTokenizer(br.readLine());
 
+		int n = Integer.parseInt(st.nextToken());
+		int m = Integer.parseInt(st.nextToken());
+
+		int[] arr = new int[n];
 		st = new StringTokenizer(br.readLine());
-		int N = Integer.parseInt(st.nextToken());
-		long M = Integer.parseInt(st.nextToken());
-
-		int[] height = new int[N];
-
-		st = new StringTokenizer(br.readLine());
-		for (int i = 0; i < N; i++) {
-			height[i] = Integer.parseInt(st.nextToken());
+		for(int i=0; i<n; i++){
+			arr[i] = Integer.parseInt(st.nextToken());
 		}
 
-		Arrays.sort(height);
+		Arrays.sort(arr);
 
-		long mid = 0;
-		long start = 0;
-		long end = height[height.length - 1];
-		long answer = 0;
-        
-		while (start < end) {
-			mid = (start + end) / 2;
+		int start = 0;
+		int end = arr[arr.length-1];
 
-			if (func(height, N, mid) < M) {
+		while(start < end){
+			int mid = (start + end) / 2;
+
+			if(func(arr, n, mid) < m)
 				end = mid;
-			} else {
+			else {
 				start = mid + 1;
-				answer = mid;
 			}
 		}
 
-		System.out.println(answer);
+		System.out.println(start-1);
 	}
 
-	private static long func(int[] height, int N, long mid) {
+	public static long func(int[] arr, int n, int mid){
 		long sum = 0;
-		for (int i = 0; i < N; i++) {
-			if (height[i] > mid) {
-				sum += height[i] - mid;
+		for(int i=0; i<n; i++){
+			if(arr[i] > mid){
+				sum += arr[i] - mid;
 			}
 		}
 		return sum;
