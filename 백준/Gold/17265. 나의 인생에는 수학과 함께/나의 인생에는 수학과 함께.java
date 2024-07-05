@@ -41,16 +41,17 @@ public class Main {
 			int nx = x + dx[i];
 			int ny = y + dy[i];
 
-			if (nx >= 0 && ny >= 0 && nx < n && ny < n) {
-				if (map[x][y] == '+') {
-					dfs(nx, ny, v + (map[nx][ny] - '0'));
-				} else if (map[x][y] == '-') {
-					dfs(nx, ny, v - (map[nx][ny] - '0'));
-				} else if (map[x][y] == '*') {
-					dfs(nx, ny, v * (map[nx][ny] - '0'));
-				} else
-					dfs(nx, ny, v);
-			}
+			if(nx < 0 || nx >= n || ny < 0 || ny >= n)
+				continue;
+
+			if (map[x][y] == '+') {
+				dfs(nx, ny, v + (map[nx][ny] - '0'));
+			} else if (map[x][y] == '-') {
+				dfs(nx, ny, v - (map[nx][ny] - '0'));
+			} else if (map[x][y] == '*') {
+				dfs(nx, ny, v * (map[nx][ny] - '0'));
+			} else
+				dfs(nx, ny, v);
 		}
 	}
 }
