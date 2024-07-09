@@ -37,6 +37,7 @@ public class Main {
         for(int i=2; i<=N; i++){
             sb.append(parent[i] + "\n");
         }
+        
         System.out.println(sb);
     }
 
