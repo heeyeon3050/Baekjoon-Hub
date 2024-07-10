@@ -41,6 +41,7 @@ public class Main {
 
     public static boolean dfs(int x, int y, int count) {
         visit[x][y] = true;
+        
         for(int i = 0; i < 4; i++) {
             int nx = x + dx[i];
             int ny = y + dy[i];
