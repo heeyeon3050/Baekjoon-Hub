@@ -8,7 +8,7 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
 
-		PriorityQueue<Integer> queue = new PriorityQueue<>((o1, o2) -> {
+		PriorityQueue<Integer> pq = new PriorityQueue<>((o1, o2) -> {
 			if(Math.abs(o1) == Math.abs(o2))
 				return Integer.compare(o1, o2);
 			return Integer.compare(Math.abs(o1), Math.abs(o2));
@@ -20,12 +20,12 @@ public class Main {
 			int x = Integer.parseInt(br.readLine());
 
 			if(x == 0){
-				if(queue.isEmpty())
+				if(pq.isEmpty())
 					sb.append("0" + "\n");
 				else
-					sb.append(queue.poll() + "\n");
+					sb.append(pq.poll() + "\n");
 			} else
-				queue.offer(x);
+				pq.offer(x);
 		}
 
 		System.out.println(sb);
