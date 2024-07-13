@@ -39,6 +39,7 @@ public class Main {
 		int i = p;
 		int j = q+1;
 		int t = 0;
+        
 		while(i <= q && j <= r) {
 			if(A[i] <= A[j])
 				tmp[t++] = A[i++];
