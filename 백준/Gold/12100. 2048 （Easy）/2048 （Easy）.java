@@ -12,7 +12,6 @@ public class Main {
         StringTokenizer st;
 
         n = Integer.parseInt(br.readLine());
-
         map = new int[n][n];
 
         for(int i=0; i<n; i++){
