@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
-import java.util.Arrays;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
@@ -22,6 +21,7 @@ public class Main {
 	static int n, m;
 	static int[][] arr;
 	static int max = Integer.MIN_VALUE;
+	static int countOfCells;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -31,6 +31,7 @@ public class Main {
 		m = Integer.parseInt(st.nextToken());
 
 		arr = new int[n][m];
+		countOfCells = n * m;
 
 		for(int i=0; i<n; i++){
 			st = new StringTokenizer(br.readLine());
@@ -39,26 +40,29 @@ public class Main {
 			}
 		}
 
-		dfs(0);
+		dfs(0, 0);
 
 		System.out.println(max);
 	}
 
-	public static void dfs(int cnt){
+	public static void dfs(int cnt, int num){
 		if(cnt == 3){
 			bfs();
 			return;
 		}
 
-		for(int i=0; i<n; i++){
-			for(int j=0; j<m; j++){
-				if(arr[i][j] == 0){
-					arr[i][j] = 1;
-					dfs(cnt+1);
-					arr[i][j] = 0;
-				}
-			}
+		if(num >= countOfCells)
+			return;
+
+		int r = num / m;
+		int c = num % m;
+		if(arr[r][c] == 0){
+			arr[r][c] = 1;
+			dfs(cnt+1, num+1);
+			arr[r][c] = 0;
 		}
+
+		dfs(cnt, num+1);
 	}
 
 	public static void bfs(){
