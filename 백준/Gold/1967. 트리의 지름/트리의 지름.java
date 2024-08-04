@@ -5,71 +5,63 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-class Node{
-    int e;
-    int cost;
-
-    Node(int e, int cost){
-        this.e = e;
-        this.cost = cost;
-    }
-}
-
 public class Main {
-    static List<Node>[] list;
-    static boolean[] visit;
-    static int max = 0;
-    static int node = 1;
+	static class Edge{
+		int to;
+		int cost;
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
-        int n = Integer.parseInt(br.readLine());
+		Edge(int to, int cost){
+			this.to = to;
+			this.cost = cost;
+		}
+	}
 
-        if(n == 1) {
-            System.out.println(0);
-            return;
-        }
+	static List<Edge>[] list;
+	static boolean[] visit;
+	static int max = 0;
+	static int node = 1;
 
-        list = new ArrayList[n+1];
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		int n = Integer.parseInt(br.readLine());
 
-        for(int i=1; i<=n; i++){
-            list[i] = new ArrayList<>();
-        }
+		list = new List[n+1];
+		for(int i=0; i<=n; i++){
+			list[i] = new ArrayList<>();
+		}
 
-        for(int i=0; i<n-1; i++){
-            st = new StringTokenizer(br.readLine());
-            int parent = Integer.parseInt(st.nextToken());
-            int child = Integer.parseInt(st.nextToken());
-            int cost = Integer.parseInt(st.nextToken());
+		for(int i=0; i<n-1; i++){
+			st = new StringTokenizer(br.readLine());
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
+			int c = Integer.parseInt(st.nextToken());
 
-            list[child].add(new Node(parent, cost));
-            list[parent].add(new Node(child, cost));
-        }
+			list[a].add(new Edge(b, c));
+			list[b].add(new Edge(a, c));
+		}
 
-        visit = new boolean[n+1];
-        dfs(1, 0);
+		visit = new boolean[n+1];
+		dfs(1, 0);
 
-        visit = new boolean[n+1];
-        dfs(node, 0);
+		visit = new boolean[n+1];
+		dfs(node, 0);
 
-        System.out.println(max);
-    }
+		System.out.println(max);
+	}
 
-    public static void dfs(int x, int len){
-        if(len > max){
-            max = len;
-            node = x;
-        }
+	public static void dfs(int x, int len){
+		if(len > max){
+			max = len;
+			node = x;
+		}
 
-        visit[x] = true;
+		visit[x] = true;
 
-        for(int i=0; i<list[x].size(); i++){
-            Node n = list[x].get(i);
-
-            if(!visit[n.e]){
-                dfs(n.e, len+n.cost);
-            }
-        }
-    }
+		for(Edge e: list[x]){
+			if(!visit[e.to]){
+				dfs(e.to, len+e.cost);
+			}
+		}
+	}
 }
