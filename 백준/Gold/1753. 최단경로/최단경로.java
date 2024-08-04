@@ -8,13 +8,9 @@ import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
-	static int V, E, K;
-	static int[] dist;
-	static List<Edge>[] adjList;
 
 	public static class Edge implements Comparable<Edge>{
-		int to;
-		int cost;
+		int to, cost;
 
 		public Edge(int to, int cost){
 			this.to = to;
@@ -22,69 +18,73 @@ public class Main {
 		}
 
 		@Override
-		public int compareTo(Edge o) {
+		public int compareTo(Edge o){
 			return Integer.compare(cost, o.cost);
 		}
 	}
+
+	static int v, e, k;
+	static int[] dist;
+	static List<Edge>[] list;
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-		StringTokenizer st;
+		StringTokenizer st = new StringTokenizer(br.readLine());
 
-		st = new StringTokenizer(br.readLine());
-		V = Integer.parseInt(st.nextToken());
-		E = Integer.parseInt(st.nextToken());
+		v = Integer.parseInt(st.nextToken());
+		e = Integer.parseInt(st.nextToken());
 
-		adjList = new List[V+1];
-
-		for(int i=0; i<=V; i++){
-			adjList[i] = new ArrayList<>();
+		list = new List[v+1];
+		for(int i=0; i<=v; i++){
+			list[i] = new ArrayList<>();
 		}
 
-		dist = new int[V+1];
+		dist = new int[v+1];
 		Arrays.fill(dist, Integer.MAX_VALUE);
 
-		K = Integer.parseInt(br.readLine());
-		for(int i=0; i<E; i++){
+		k = Integer.parseInt(br.readLine());
+		for(int i=0; i<e; i++){
 			st = new StringTokenizer(br.readLine());
 			int u = Integer.parseInt(st.nextToken());
 			int v = Integer.parseInt(st.nextToken());
 			int w = Integer.parseInt(st.nextToken());
 
-			adjList[u].add(new Edge(v, w));
+			list[u].add(new Edge(v, w));
 		}
 
-		dijkstra(K);
+		dijkstra(k);
 
-		for(int i=1; i<=V; i++){
+		for(int i=1; i<=v; i++){
 			if(dist[i] == Integer.MAX_VALUE)
-				sb.append("INF" + "\n");
+				sb.append("INF").append("\n");
 			else
-				sb.append(dist[i] + "\n");
+				sb.append(dist[i]).append("\n");
 		}
 
 		System.out.println(sb);
 	}
 
-	private static void dijkstra(int num){
-		PriorityQueue<Edge> queue = new PriorityQueue<>();
-		boolean[] visit = new boolean[V+1];
-		queue.offer(new Edge(num, 0));
+	public static void dijkstra(int num){
+		PriorityQueue<Edge> pq = new PriorityQueue<>();
+		boolean[] visit = new boolean[v+1];
+		pq.offer(new Edge(num, 0));
 
 		dist[num] = 0;
 
-		while(!queue.isEmpty()){
-			Edge edge = queue.poll();
-			int cur = edge.to;
+		while(!pq.isEmpty()){
+			Edge edge = pq.poll();
+			int now = edge.to;
 
-			if(visit[cur]) continue;
+			if(visit[now])
+				continue;
 
-			visit[cur] = true;
+			visit[now] = true;
 
-			for(Edge e : adjList[cur]){
-				if(!visit[e.to] && dist[e.to] > dist[cur] + e.cost){
-					dist[e.to] = dist[cur] + e.cost;
-					queue.offer(new Edge(e.to, dist[e.to]));
+			for(Edge e: list[now]){
+				if(!visit[e.to] && dist[e.to] > dist[now] + e.cost){
+					dist[e.to] = dist[now] + e.cost;
+					pq.offer(new Edge(e.to, dist[e.to]));
 				}
 			}
 		}
