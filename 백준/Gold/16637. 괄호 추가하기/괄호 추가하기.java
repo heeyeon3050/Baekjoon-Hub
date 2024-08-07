@@ -23,7 +23,6 @@ public class Main {
                 opr.add(c);
             }
         }
-
         dfs(0, arr.get(0));
 
         System.out.println(max);
