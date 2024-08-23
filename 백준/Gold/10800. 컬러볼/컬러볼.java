@@ -20,6 +20,7 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
 		StringTokenizer st;
+        
 		int N = Integer.parseInt(br.readLine());
 
 		Ball[] balls = new Ball[N];
