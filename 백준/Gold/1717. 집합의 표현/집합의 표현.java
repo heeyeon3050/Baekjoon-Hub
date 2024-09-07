@@ -50,6 +50,7 @@ public class Main {
 	public static int find(int v) {
 		if (parent[v] != v)
 			parent[v] = find(parent[v]);
+        
 		return parent[v];
 	}
 
