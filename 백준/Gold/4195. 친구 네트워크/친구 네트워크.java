@@ -32,6 +32,7 @@ public class Main {
 
 			for(int i=0; i<f; i++){
 				st = new StringTokenizer(br.readLine());
+                
 				String a = st.nextToken();
 				String b = st.nextToken();
 
