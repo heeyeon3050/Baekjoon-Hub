@@ -25,6 +25,7 @@ public class Main {
 
 		for (int i = 0; i < m; i++) {
 			st = new StringTokenizer(br.readLine());
+            
 			int a = Integer.parseInt(st.nextToken());
 			int b = Integer.parseInt(st.nextToken());
 			int c = Integer.parseInt(st.nextToken());
