@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,19 +23,21 @@ public class Main {
 		StringTokenizer st;
 
 		int n = Integer.parseInt(br.readLine());
-		Pair[] meeting = new Pair[n];
+
+		Pair[] arr = new Pair[n];
 
 		for(int i=0; i<n; i++){
 			st = new StringTokenizer(br.readLine());
 			int s = Integer.parseInt(st.nextToken());
 			int e = Integer.parseInt(st.nextToken());
-			meeting[i] = new Pair(s, e);
+
+			arr[i] = new Pair(s, e);
 		}
 
-		compress(meeting);
+		compress(arr);
 
-		int[] num = new int[222222];
-		for(Pair p : meeting){
+		int[] num = new int[222222]; //n이 최대 100000이므로 시작 시간과 끝나는 시간 고려하면 200000 넉넉하게 필요함.
+		for(Pair p : arr){
 			num[p.s] += 1;
 			num[p.e] -= 1;
 		}
@@ -53,30 +54,48 @@ public class Main {
 		System.out.println(max);
 	}
 
-	public static void compress(Pair[] pairs){
+	public static void compress(Pair[] arr){
 		Map<Integer, Integer> map = new TreeMap<>();
 
-		for(Pair p : pairs){
+		for(Pair p : arr){
 			map.put(p.s, 0);
 			map.put(p.e, 0);
 		}
 
-		// int[] arr = new int[map.size()];
-		// int idx = 0;
-		// for(int key : map.keySet()){
-		// 	arr[idx++] = key;
-		// }
-		//
-		// Arrays.sort(arr);
-
-		int idx = 0;
+		int num = 0;
 		for(int key : map.keySet()){
 			if(map.get(key) != 0)
 				continue;
-			map.put(key, idx++);
+			map.put(key, num++);
 		}
 
-		for (Pair p: pairs) {
+		for(Pair p : arr){
+			p.s = map.get(p.s);
+			p.e = map.get(p.e);
+		}
+	}
+
+	public static void compress1(Pair[] arr){
+		Map<Integer, Integer> map = new HashMap<>();
+
+		for(Pair p : arr){
+			map.put(p.s, 0);
+			map.put(p.e, 0);
+		}
+
+		int[] temp = new int[map.size()];
+		int num = 0;
+		for(int key : map.keySet()){
+			temp[num++] = key;
+		}
+		Arrays.sort(temp);
+
+		num = 0;
+		for(int i=0; i<temp.length; i++){
+			map.put(temp[i], num++);
+		}
+
+		for (Pair p: arr) {
 			p.s = map.get(p.s);
 			p.e = map.get(p.e);
 		}
