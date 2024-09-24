@@ -22,6 +22,7 @@ public class Main {
         }
 
         dfs(0);
+        
         System.out.println(answer);
     }
 

@@ -1,10 +1,10 @@
-# [Gold II] 2048 (Easy) - 12100 
+# [Gold I] 2048 (Easy) - 12100 
 
 [문제 링크](https://www.acmicpc.net/problem/12100) 
 
 ### 성능 요약
 
-메모리: 20868 KB, 시간: 188 ms
+메모리: 20872 KB, 시간: 152 ms
 
 ### 분류
 
@@ -12,7 +12,7 @@
 
 ### 제출 일자
 
-2024년 7월 29일 14:07:39
+2024년 9월 24일 23:52:08
 
 ### 문제 설명
 
@@ -82,8 +82,8 @@
 		<tr>
 			<td style="text-align:center"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/17.png" style="height:250px; width:248px"></td>
 			<td style="text-align:center"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/18.png" style="height:250px; width:252px"></td>
-			<td style="text-align:center"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/19.png" style="height:250px; width:250px"></td>
-			<td style="text-align:center"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/20.png" style="height:250px; width:250px"></td>
+			<td style="text-align:center"><img alt="" src="" style="height:250px; width:250px"></td>
+			<td style="text-align:center"><img alt="" src="" style="height:250px; width:250px"></td>
 		</tr>
 	</tbody>
 	<tfoot>
@@ -103,8 +103,8 @@
 <table class="table">
 	<tbody>
 		<tr>
-			<td style="text-align:center"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/21.png" style="height:250px; width:249px"></td>
-			<td style="text-align:center"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/22.png" style="height:250px; width:249px"></td>
+			<td style="text-align:center"><img alt="" src="" style="height:250px; width:249px"></td>
+			<td style="text-align:center"><img alt="" src="" style="height:250px; width:249px"></td>
 		</tr>
 	</tbody>
 	<tfoot>
