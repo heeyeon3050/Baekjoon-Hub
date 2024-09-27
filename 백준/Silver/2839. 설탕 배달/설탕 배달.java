@@ -1,26 +1,26 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Main {
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        
-		int N = Integer.parseInt(br.readLine());
-		int cnt = 0;
-		int min = N;
 
-        for(int i=0; i<=N/5; i++) {
-            for(int j=0; j<=N/3; j++) {
-                if((5*i + 3*j)==N) {
-                    cnt = i+j;
-                    if(cnt < min)
-                        min = cnt;
-                }
-            }
+		int n = Integer.parseInt(br.readLine());
+		int[] dp = new int[n+1];
+		Arrays.fill(dp, 5001);
+
+		dp[3] = 1;
+		if(n >= 5)
+			dp[5] = 1;
+		for(int i=6; i<=n; i++){
+			dp[i] = Math.min(dp[i - 3], dp[i - 5]) + 1;
 		}
-		
-		if(min == N)
-			min = -1;
-		System.out.println(min);
+
+		if(dp[n] >= 5001)
+			System.out.println(-1);
+		else
+			System.out.println(dp[n]);
 	}
 }
