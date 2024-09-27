@@ -13,19 +13,24 @@ public class Main {
 		k = Integer.parseInt(st.nextToken());
 		n = Integer.parseInt(st.nextToken());
 
+		long max = 0;
 		int[] arr = new int[k];
-		for(int i=0; i<k; i++){
+		for (int i = 0; i < k; i++) {
 			arr[i] = Integer.parseInt(br.readLine());
+			if(max < arr[i]) {
+				max = arr[i];
+			}
 		}
 
-		Arrays.sort(arr);
 
-		System.out.println(upperBound(arr)-1);
+		// 반드시 max에서 +1 값이어야 한다.
+		max++;
+		System.out.println(upperBound(arr, max)-1);
 	}
 
-	public static long upperBound(int[] arr){
-		long start = 1;
-		long end = 2_222_222_222L;
+	public static long upperBound(int[] arr, long max){
+		long start = 0;
+		long end = max;
 
 		while(start < end){
 			//int mid = (start + end) / 2;
