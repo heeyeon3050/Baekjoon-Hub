@@ -6,6 +6,7 @@ public class Main {
 	static int num[];
 	static int N;
 	static StringBuilder sb = new StringBuilder();
+    
 	public static void main(String args[]) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		N = Integer.parseInt(br.readLine());
