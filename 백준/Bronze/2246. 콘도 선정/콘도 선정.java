@@ -14,7 +14,7 @@ public class Main {
 			dc[i][0] = Integer.parseInt(st.nextToken());
 			dc[i][1] = Integer.parseInt(st.nextToken());
 		}
-
+		
 		int cnt = 0;
 		for(int i=0; i<n; i++){
 			boolean flag = true;
