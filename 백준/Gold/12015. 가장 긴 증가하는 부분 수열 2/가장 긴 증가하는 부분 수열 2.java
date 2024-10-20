@@ -9,7 +9,6 @@ public class Main {
 		StringTokenizer st;
 
 		int N = Integer.parseInt(br.readLine());
-
 		int[] A = new int[N];
 		int[] dp = new int[N];
 
@@ -22,7 +21,6 @@ public class Main {
 		int length = 1;
 
 		for(int i=1; i<N; i++){
-
 			int key = A[i];
 
 			if(dp[length-1] < key){
