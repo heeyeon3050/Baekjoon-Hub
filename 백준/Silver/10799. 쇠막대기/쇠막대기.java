@@ -9,7 +9,6 @@ public class Main {
 
 		Stack<Character> stack = new Stack<>();
 
-		int num = 0;
 		int sum = 0;
 		char prev = '(';
 		int length = str.length();
@@ -18,12 +17,11 @@ public class Main {
 			if(x == '(')
 				stack.push(x);
 			else{
-				if(prev != x) {
-					sum += stack.size() - 1;
-				}
+				stack.pop();
+				if(prev != x)
+					sum += stack.size();
 				else
 					sum++;
-				stack.pop();
 			}
 			prev = x;
 		}
