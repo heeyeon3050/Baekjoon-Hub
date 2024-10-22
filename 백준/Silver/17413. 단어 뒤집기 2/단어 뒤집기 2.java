@@ -1,44 +1,47 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Stack;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-		Stack <Character> stack = new Stack<>();
-		String str = br.readLine();
-		
-		boolean check = false;
-		
-		for(int i=0; i<str.length(); i++) {
-			if(str.charAt(i)=='<') {
-				check = true;
-				while(!stack.empty()) {
+
+		String str = br.readLine() + " ";
+
+		int length = str.length();
+		boolean flag = false;
+		Stack<Character> stack = new Stack<>();
+		Queue<Character> queue = new ArrayDeque<>();
+		for(int i=0; i<length; i++){
+			char x = str.charAt(i);
+			if(flag && x == '>'){
+				queue.add(x);
+				while(!queue.isEmpty()){
+					sb.append(queue.poll());
+				}
+				flag = false;
+				queue = new ArrayDeque<>();
+			} else if(flag && (x >= 'a' && x <= 'z' || x == ' ')){
+				queue.add(x);
+			} else if(!flag && ((x >= 'a' && x <= 'z') || (x >= '0' && x<= '9'))){
+				stack.push(x);
+			} else if(x == '<') {
+				flag = true;
+				queue.add(x);
+				while(!stack.isEmpty()){
 					sb.append(stack.pop());
 				}
-				sb.append(str.charAt(i));
-			}
-			else if(str.charAt(i)=='>') {
-				check = false;
-				sb.append(str.charAt(i));
-			}
-			else if(check){
-				sb.append(str.charAt(i));
-			}
-			else {
-				if(str.charAt(i)==' ') {
-					while(!stack.empty())
-						sb.append(stack.pop());
-					sb.append(' ');
+				stack = new Stack<>();
+			} else if(!flag && x == ' '){
+
+				while(!stack.isEmpty()){
+					sb.append(stack.pop());
 				}
-				else
-					stack.add(str.charAt(i));
+				sb.append(" ");
+				stack = new Stack<>();
 			}
 		}
-		while(!stack.empty())
-			sb.append(stack.pop());
+
 		System.out.println(sb);
 	}
 }
