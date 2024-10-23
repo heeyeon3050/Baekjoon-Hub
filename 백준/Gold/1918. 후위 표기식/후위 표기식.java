@@ -15,9 +15,9 @@ public class Main {
 			char x = str.charAt(i);
 			if(x >= 'A' && x<= 'Z')
 				sb.append(x);
-			else if(!stack.isEmpty() && x == '(')
+			else if(x == '(')
 				stack.push(x);
-			else if(!stack.isEmpty() && x == ')'){
+			else if(x == ')'){
 				while(!stack.isEmpty() && stack.peek() != '(')
 					sb.append(stack.pop());
 				stack.pop();
