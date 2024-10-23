@@ -1,54 +1,47 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Stack;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String str = br.readLine();
 		StringBuilder sb = new StringBuilder();
+
+		String str = br.readLine();
+
 		Stack<Character> stack = new Stack<>();
-		
-		for(int i=0; i<str.length(); i++) {
-			switch(str.charAt(i)) {
-				case '+' :
-				case '-' :
-				case '*' :
-				case '/' :
-					while(!stack.empty() && priority(stack.peek()) >= priority(str.charAt(i))) {
+
+		int length = str.length();
+		for(int i=0; i<length; i++){
+			char x = str.charAt(i);
+			if(x >= 'A' && x<= 'Z')
+				sb.append(x);
+			else if(!stack.isEmpty() && x == '(')
+				stack.push(x);
+			else if(!stack.isEmpty() && x == ')'){
+				while(!stack.isEmpty() && stack.peek() != '(')
+					sb.append(stack.pop());
+				stack.pop();
+			} else {
+				while(!stack.isEmpty() && priority(stack.peek()) >= priority(x)){
 						sb.append(stack.pop());
-					}
-					stack.add(str.charAt(i));
-					break;
-				case '(' :
-					stack.add(str.charAt(i));
-					break;
-				case ')' :
-					while(!stack.empty() && stack.peek()!='(') {
-						sb.append(stack.pop());
-					}
-					stack.pop();
-					break;
-				default :
-					sb.append(str.charAt(i));
+				}
+				stack.push(x);
 			}
 		}
-		
-		while(!stack.empty())
+
+		while(!stack.isEmpty()){
 			sb.append(stack.pop());
-		
+		}
+
 		System.out.println(sb);
 	}
-	
-	public static int priority(char operator) {
-		if(operator=='(' || operator==')')
+
+	public static int priority(char x){
+		if(x == '(' || x == ')')
 			return 0;
-		else if(operator=='+' || operator=='-')
+		if(x == '+' || x == '-')
 			return 1;
-		else if(operator=='*' || operator=='/')
-			return 2;
 		else
-			return -1;
+			return 2;
 	}
 }
