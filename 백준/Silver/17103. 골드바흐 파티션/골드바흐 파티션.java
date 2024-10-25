@@ -15,15 +15,14 @@ public class Main {
 		int t = Integer.parseInt(br.readLine());
 		for(int tc=0; tc<t; tc++){
 			int n = Integer.parseInt(br.readLine());
-
 			int cnt = 0;
 			for(int i=2; i<=n/2; i++){
 				if(prime[i] && prime[n-i])
 					cnt++;
 			}
-
 			sb.append(cnt).append("\n");
 		}
+
 		System.out.println(sb);
 	}
 
