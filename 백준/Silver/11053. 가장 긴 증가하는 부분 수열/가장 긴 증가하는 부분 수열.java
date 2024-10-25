@@ -1,34 +1,33 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
 
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int[] A = new int[N];
-        int[] dp = new int[N];
+		int n = Integer.parseInt(br.readLine());
+		int[] arr = new int[n+1];
+		st = new StringTokenizer(br.readLine());
+		for(int i=1; i<=n; i++){
+			arr[i] = Integer.parseInt(st.nextToken());
+		}
 
-        for(int i=0; i<N; i++){
-            A[i] = Integer.parseInt(st.nextToken());
-        }
+		int[] dp = new int[n+1];
+		Arrays.fill(dp, 1);
+		for(int i=1; i<=n; i++){
+			for(int j=1; j<i; j++){
+				if(arr[i] > arr[j]){
+					dp[i] = Math.max(dp[i], dp[j]+1);
+				}
+			}
+		}
 
-        for(int i=0; i<N; i++){
-            for(int j=0; j<i; j++){
-                if(A[i] > A[j] && dp[i] < dp[j] + 1){
-                    dp[i] = dp[j]+1;
-                }
-            }
-        }
+		int max = Integer.MIN_VALUE;
+		for(int i=1; i<=n; i++){
+			max = Math.max(max, dp[i]);
+		}
 
-        int max = Integer.MIN_VALUE;
-        for(int i=0; i<N; i++){
-            max = Math.max(max, dp[i]);
-        }
-
-        System.out.println(max+1);
-    }
+		System.out.println(max);
+	}
 }
