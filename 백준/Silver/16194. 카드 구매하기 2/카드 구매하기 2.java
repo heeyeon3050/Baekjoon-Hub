@@ -1,29 +1,24 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
-		int N = Integer.parseInt(br.readLine());
-		int dp[] = new int[N+1];
-		int cost[] = new int[N+1];
-		
+
+		int n = Integer.parseInt(br.readLine());
+		int[] dp = new int[n+1];
 		st = new StringTokenizer(br.readLine());
-		for(int i=1; i<=N; i++) {
-			cost[i] = Integer.parseInt(st.nextToken());
-			dp[i] = cost[i];
+		for(int i=1; i<=n; i++){
+			dp[i] = Integer.parseInt(st.nextToken());
 		}
-		
-		dp[0] = 0;
-		for(int i=1; i<=N; i++) {
-			for(int j=1; j<=i; j++) {
-				dp[i] = Math.min(dp[i], dp[i-j]+cost[j]);
+
+		for(int i=1; i<=n; i++){
+			for(int j=1; j<=i/2; j++){
+				dp[i] = Math.min(dp[i], dp[i-j] + dp[j]);
 			}
 		}
-		
-		System.out.println(dp[N]);
+
+		System.out.println(dp[n]);
 	}
 }
