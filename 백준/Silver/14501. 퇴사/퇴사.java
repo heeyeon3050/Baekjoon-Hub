@@ -18,9 +18,8 @@ public class Main {
 
 		int[] dp = new int[n+2];
 		for(int i=1; i<=n; i++){
-			if (i+t[i] <= n+1) // 일 했을 경우
+			if(i+t[i] <= n+1)
 				dp[i+t[i]] = Math.max(dp[i+t[i]], dp[i]+p[i]);
-			//오늘 일한 값을 다음 날로 누적 (일 안했을 경우)
 			dp[i+1] = Math.max(dp[i+1], dp[i]);
 		}
 
