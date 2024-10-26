@@ -1,39 +1,36 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-	static int N, M;
-	static StringBuilder sb;
-	static int[] num;
-
+	static int n, m;
+	public static int[] arr;
+	public static boolean[] visit;
+	static StringBuilder sb = new StringBuilder();
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		sb = new StringBuilder();
-		StringTokenizer st;
+		StringTokenizer st = new StringTokenizer(br.readLine());
 
-		st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
 
-		num = new int[M];
-		per(0);
+		arr = new int[m];
+		visit = new boolean[n+1];
+		recur(0);
 
 		System.out.println(sb);
 	}
 
-	private static void per(int n){
-		if(n == M){
-			for(int i=0; i<M; i++)
-				sb.append(num[i] + " ");
+	public static void recur(int depth){
+		if(depth == m){
+			for(int a : arr)
+				sb.append(a).append(" ");
 			sb.append("\n");
 			return;
 		}
 
-		for(int i=0; i<N; i++){
-			num[n] = i+1;
-			per(n+1);
+		for(int i=1; i<=n; i++){
+			arr[depth] = i;
+			recur(depth+1);
 		}
 	}
 }
