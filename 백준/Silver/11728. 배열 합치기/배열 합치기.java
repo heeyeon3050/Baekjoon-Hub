@@ -4,29 +4,39 @@ import java.util.*;
 public class Main {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
 		StringTokenizer st = new StringTokenizer(br.readLine());
+		StringBuilder sb = new StringBuilder();
 
 		int n = Integer.parseInt(st.nextToken());
 		int m = Integer.parseInt(st.nextToken());
 
-		int sum = n+m;
-		int[] arr = new int[sum];
-
+		int[] a = new int[n];
+		int[] b = new int[m];
 		st = new StringTokenizer(br.readLine());
 		for(int i=0; i<n; i++){
-			arr[i] = Integer.parseInt(st.nextToken());
+			a[i] = Integer.parseInt(st.nextToken());
 		}
-
 		st = new StringTokenizer(br.readLine());
-		for(int i=n; i<sum; i++){
-			arr[i] = Integer.parseInt(st.nextToken());
+		for(int i=0; i<m; i++){
+			b[i] = Integer.parseInt(st.nextToken());
 		}
 
-		Arrays.sort(arr);
+		int p1 = 0;
+		int p2 = 0;
+		while(p1 < n && p2 < m){
+			if(a[p1] < b[p2]){
+				sb.append(a[p1++]).append(" ");
+			} else {
+				sb.append(b[p2++]).append(" ");
+			}
+		}
 
-		for(int i=0; i<sum; i++){
-			sb.append(arr[i]).append(" ");
+		while(p1 < n){
+			sb.append(a[p1++]).append(" ");
+		}
+
+		while(p2 < m){
+			sb.append(b[p2++]).append(" ");
 		}
 
 		System.out.println(sb);
