@@ -1,37 +1,36 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-	static int N, M;
-	static boolean visit[];
+	static int n, m;
+	public static int[] arr;
+	public static boolean[] visit;
 	static StringBuilder sb = new StringBuilder();
-	public static void main(String args[]) throws Exception{
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
-		
-		visit = new boolean [N+1];
-		dfs(1, 0);
-		
+
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
+
+		arr = new int[m];
+		visit = new boolean[n+1];
+		recur(0, 1);
+
 		System.out.println(sb);
 	}
-	
-	public static void dfs(int x, int cnt) {
-		if(cnt == M) {
-			for(int i=1; i<=N; i++) {
-				if(visit[i])
-					sb.append(i + " ");
-			}
+
+	public static void recur(int depth, int start){
+		if(depth == m){
+			for(int a : arr)
+				sb.append(a).append(" ");
 			sb.append("\n");
 			return;
 		}
-		
-		for(int i=x; i<=N; i++) {
-			visit[i] = true;
-			dfs(i+1, cnt+1);
-			visit[i] = false;
+
+		for(int i=start; i<=n; i++){
+			arr[depth] = i;
+			recur(depth+1, i+1);
 		}
 	}
 }
