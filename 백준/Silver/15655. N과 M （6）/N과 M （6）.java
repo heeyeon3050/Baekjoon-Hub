@@ -1,49 +1,45 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    static StringBuilder sb = new StringBuilder();
-    static int[] arr;
-    static boolean[] visit;
-    static int n, m;
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
+	static int n, m;
+	public static int[] num;
+	public static int[] arr;
+	public static boolean[] visit;
+	static StringBuilder sb = new StringBuilder();
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
 
-        st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
 
-        arr = new int[n];
-        visit = new boolean[n];
+		num = new int[n];
+		st = new StringTokenizer(br.readLine());
+		for(int i=0; i<n; i++){
+			num[i] = Integer.parseInt(st.nextToken());
+		}
 
-        st = new StringTokenizer(br.readLine());
-        for(int i=0; i<n; i++){
-            arr[i] = Integer.parseInt(st.nextToken());
-        }
+		Arrays.sort(num);
 
-        Arrays.sort(arr);
+		arr = new int[m];
+		visit = new boolean[n];
+		recur(0, 0);
 
-        dfs(0, new int[m], 0);
+		System.out.println(sb);
+	}
 
-        System.out.println(sb);
-    }
+	public static void recur(int depth, int start){
+		if(depth == m){
+			for(int a : arr)
+				sb.append(a).append(" ");
+			sb.append("\n");
+			return;
+		}
 
-    public static void dfs(int L, int[] num, int start){
-        if(L == m) {
-            for(int i=0; i<m; i++){
-                sb.append(num[i] + " ");
-            }
-            sb.append("\n");
-            return;
-        }
-
-        for(int i=start; i<n; i++){
-            num[L] = arr[i];
-            dfs(L+1, num, i+1);
-        }
-    }
+		for(int i=start; i<n; i++){
+			arr[depth] = num[i];
+			recur(depth + 1, i+1);
+		}
+	}
 }
