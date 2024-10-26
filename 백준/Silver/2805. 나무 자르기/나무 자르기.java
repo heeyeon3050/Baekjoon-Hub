@@ -1,52 +1,49 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
+	static int n, m;
+	static int[] arr;
+	static int max = 0;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 
-		int n = Integer.parseInt(st.nextToken());
-		long m = Long.parseLong(st.nextToken());
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
 
-		long[] arr = new long[n];
-
+		arr = new int[n];
 		st = new StringTokenizer(br.readLine());
 		for(int i=0; i<n; i++){
-			arr[i] = Long.parseLong(st.nextToken());
+			arr[i] = Integer.parseInt(st.nextToken());
+			max = Math.max(max, arr[i]);
 		}
 
-		Arrays.sort(arr);
-
-		System.out.println(upperBound(arr, m)-1);
+		System.out.println(upperBound()-1);
 	}
 
-	public static long upperBound(long[] arr, long m){
-		long start = 0;
-		long end = arr[arr.length-1];
+	public static int upperBound(){
+		int start = 0;
+		int end = max+1;
 
 		while(start < end){
-			long mid = (start + end) / 2;
-
-			if(height(arr, mid) >= m){
-                start = mid + 1;
-			} else
+			int mid = (start+end) / 2;
+			if(func(mid) >= m){
+				start = mid + 1;
+			} else{
 				end = mid;
+			}
 		}
 
 		return start;
 	}
 
-	public static long height(long[] arr, long mid){
-		long n = arr.length;
-
+	public static long func(int mid){
 		long sum = 0;
 		for(int i=0; i<n; i++){
-			if(arr[i] > mid)
+			if(arr[i] > mid){
 				sum += arr[i] - mid;
+			}
 		}
 
 		return sum;
