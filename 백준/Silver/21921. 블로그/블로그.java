@@ -1,43 +1,43 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
-		StringTokenizer st;
+		StringTokenizer st = new StringTokenizer(br.readLine());
 
+		int n = Integer.parseInt(st.nextToken());
+		int x = Integer.parseInt(st.nextToken());
+
+		int[] arr = new int[n];
 		st = new StringTokenizer(br.readLine());
-		int N = Integer.parseInt(st.nextToken());
-		int X = Integer.parseInt(st.nextToken());
-
-		st = new StringTokenizer(br.readLine());
-		int[] arr = new int[N + 1];
-		int[] sum = new int[N + 1];
-
-		for (int i = 1; i <= N; i++) {
+		for(int i=0; i<n; i++){
 			arr[i] = Integer.parseInt(st.nextToken());
-			sum[i] = sum[i - 1] + arr[i];
 		}
 
-		int max = Integer.MIN_VALUE;
-		int index = 0, cnt = 0;
-		for (int i = X; i <= N; i++) {
-			int result = sum[i] - sum[index++];
-			if (max < result) {
-				max = result;
-				cnt = 1;
-			} else if (max == result) {
+		int sum = 0;
+		for(int i=0; i<x; i++){
+			sum += arr[i];
+		}
+
+		int cnt = 1;
+		int max = sum;
+		for(int i=0; i+x<n; i++){
+			sum -= arr[i];
+			sum += arr[i+x];
+			if(max == sum){
 				cnt++;
+			} else if(max < sum){
+				max = sum;
+				cnt = 1;
 			}
 		}
 
-		if (max == 0)
-			sb.append("SAD");
-		else
-			sb.append(max + "\n" + cnt);
-		System.out.println(sb);
+		if(max == 0)
+			System.out.println("SAD");
+		else {
+			System.out.println(max);
+			System.out.println(cnt);
+		}
 	}
 }
