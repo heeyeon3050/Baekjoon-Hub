@@ -1,54 +1,48 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-	static int N, M;
-	static int arr[];
-	static int answer[];
-	static boolean visit[];
-	public static void main(String[] args) throws IOException{
+	static int n, m;
+	public static int[] num;
+	public static int[] arr;
+	public static boolean[] visit;
+	static StringBuilder sb = new StringBuilder();
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st;
+		StringTokenizer st = new StringTokenizer(br.readLine());
+
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
+
+		num = new int[n];
 		st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
-		arr = new int[N];
-		visit = new boolean[N];
-		answer = new int[M];
-		
-		st = new StringTokenizer(br.readLine());
-		for(int i=0; i<N; i++) {
-			arr[i] = Integer.parseInt(st.nextToken());
+		for(int i=0; i<n; i++){
+			num[i] = Integer.parseInt(st.nextToken());
 		}
-		Arrays.sort(arr);
-		dfs(0, 0);
-		
+
+		Arrays.sort(num);
+
+		arr = new int[m];
+		visit = new boolean[n];
+		recur(0, 0);
+
+		System.out.println(sb);
 	}
-	
-	public static void dfs(int start, int cnt) {
-		if(cnt == M) {
-			for(int i=0; i<M; i++) {
-				System.out.print(answer[i] + " ");
-			}
-			System.out.println();
+
+	public static void recur(int depth, int start){
+		if(depth == m){
+			for(int a : arr)
+				sb.append(a).append(" ");
+			sb.append("\n");
 			return;
 		}
-		
-		else {
-			int before = 0;
-			for(int i=start; i<N; i++) {
-				if(arr[i] == before || visit[i])
-					continue;
-				else {
-					before = arr[i];
-					visit[i] = true;
-					answer[cnt] = arr[i];
-					dfs(i+1, cnt+1);
-					visit[i] = false;
-				}
+
+		int prev = 0;
+		for(int i=start; i<n; i++){
+			if(prev != num[i]) {
+				arr[depth] = num[i];
+				prev = num[i];
+				recur(depth + 1, i+1);
 			}
 		}
 	}
