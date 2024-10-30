@@ -1,28 +1,39 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-	public static void main(String[] args) throws IOException{
-		  BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		  StringTokenizer st;
-		  int n = Integer.parseInt(br.readLine());
-		  int arr[] = new int[n+1];
-		  int dp[][] = new int[n+1][2];
-		  
-		  st = new StringTokenizer(br.readLine());
-		  for(int i=1; i<=n; i++) {
-			  arr[i] = Integer.parseInt(st.nextToken());
-		  }
-		  dp[1][0] = arr[1];
-		  dp[1][1] = arr[1];
-		  int max = arr[1];
-		  for(int i=2; i<=n; i++) {
-			  dp[i][0] = Math.max(dp[i-1][0] + arr[i], arr[i]);
-			  dp[i][1] = Math.max(dp[i-1][0], dp[i-1][1] + arr[i]); //해당 값을 뺄경우 앞에서 빠지면 안되므로 연속합, 안 뺄경우 앞에서 하나 빼야하므로 빠진 최대 연속합
-			  max = Math.max(max, Math.max(dp[i][0], dp[i][1]));
-		  }
-		  System.out.println(max);
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+
+		int n = Integer.parseInt(br.readLine());
+
+		st = new StringTokenizer(br.readLine());
+		int[] arr = new int[n+1];
+		for(int i=1; i<=n; i++){
+			arr[i] = Integer.parseInt(st.nextToken());
+		}
+
+		int max = Integer.MIN_VALUE;
+		int[] dp1 = new int[n+1];
+		int[] dp2 = new int[n+1];
+		for(int i=1; i<=n; i++){
+			dp1[i] = Math.max(arr[i], dp1[i-1] + arr[i]);
+			max = Math.max(max, dp1[i]); //수를 제거하지 않았을 경우의 최대값
+		}
+
+		dp2[n] = arr[n];
+		for(int i=n-1; i>=1; i--){
+			dp2[i] = Math.max(arr[i], dp2[i+1] + arr[i]);
+		}
+
+
+		//수를 제거했을 경우의 최대값
+		for(int i=1; i<n; i++){
+			int result = dp1[i-1] + dp2[i+1];
+			max = Math.max(max, result);
+		}
+
+		System.out.println(max);
 	}
 }
