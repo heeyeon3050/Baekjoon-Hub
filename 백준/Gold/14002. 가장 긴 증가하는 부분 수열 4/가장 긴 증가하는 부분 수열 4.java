@@ -16,36 +16,26 @@ public class Main {
 
 		int[] dp = new int[n+1];
 		Arrays.fill(dp, 1);
+		int max = Integer.MIN_VALUE;
 		for(int i=1; i<=n; i++){
 			for(int j=1; j<i; j++){
-				if(arr[i] > arr[j]){
+				if(arr[i] > arr[j])
 					dp[i] = Math.max(dp[i], dp[j]+1);
-				}
 			}
-		}
-		
-		int max = Integer.MIN_VALUE;
-		int idx = -1;
-		for(int i=1; i<=n; i++){
-			if(max < dp[i]){
-				max = dp[i];
-				idx = i;
-			}
-		}
-
-		Stack<Integer> stack = new Stack<>();
-		int value = max;
-		for(int i=idx; i>=1; i--){
-			if(dp[i] == value){
-				stack.push(arr[i]);
-				value--;
-			}
+			max = Math.max(max, dp[i]);
 		}
 
 		sb.append(max).append("\n");
-		while(!stack.isEmpty()){
-			sb.append(stack.pop()).append(" ");
+		Stack<Integer> stack = new Stack<>();
+		for(int i=n; i>=1; i--){
+			if(dp[i] == max) {
+				stack.add(arr[i]);
+				max--;
+			}
 		}
+
+		while(!stack.isEmpty())
+			sb.append(stack.pop()).append(" ");
 
 		System.out.println(sb);
 	}
