@@ -1,43 +1,40 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
-        int target = Integer.parseInt(br.readLine());
-        int m = Integer.parseInt(br.readLine());
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
 
-        boolean[] broken = new boolean[10];
+		int n = Integer.parseInt(br.readLine());
+		int m = Integer.parseInt(br.readLine());
 
-        if(m > 0) {
-            st = new StringTokenizer(br.readLine());
-            for (int i = 0; i < m; i++) {
-                int n = Integer.parseInt(st.nextToken());
-                broken[n] = true;
-            }
-        }
+		boolean[] broken = new boolean[10];
+		if(m > 0) {
+			st = new StringTokenizer(br.readLine());
+			for(int i=0; i<m; i++){
+				int a = Integer.parseInt(st.nextToken());
+				broken[a] = true;
+			}
+		}
 
-        int result = Math.abs(target - 100); //초기값 설정
-        for(int i = 0; i <= 999999; i++) {
-            String str = String.valueOf(i);
-            int len = str.length();
+		int min = Math.abs(n - 100);
+		for(int i=0; i<=999999; i++){
+			String num = String.valueOf(i);
 
-            boolean isBreak = false;
-            for(int j = 0; j < len; j++) {
-                if(broken[str.charAt(j) - '0']) { //고장난 버튼을 눌러야 하면
-                    isBreak = true;
-                    break; //더 이상 탐색하지 않고 빠져나온다.
-                }
-            }
-            if(!isBreak) { //i를 누를때 고장난 버튼을 누르지 않는다면
-                int min = Math.abs(target - i) + len; //i를 누른 후(len) target까지 이동하는 횟수(target - i)
-                result = Math.min(min, result);
-            }
-        }
-        
-        System.out.println(result);
-    }
+			boolean flag = false;
+			for(int j=0; j<num.length(); j++){
+				if(broken[num.charAt(j) - '0']){
+					flag = true;
+					break;
+				}
+			}
+
+			if(!flag){
+				min = Math.min(min, Math.abs(n - i) + num.length());
+			}
+		}
+
+		System.out.println(min);
+	}
 }
