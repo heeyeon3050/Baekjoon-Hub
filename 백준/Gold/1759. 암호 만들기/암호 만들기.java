@@ -1,67 +1,57 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    static char[] m = {'a', 'e', 'i', 'o', 'u'};
-    static StringBuilder sb = new StringBuilder();
-    static char[] arr;
-    static char[] nums;
-    static int l, c;
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
-        st = new StringTokenizer(br.readLine());
-        l = Integer.parseInt(st.nextToken());
-        c = Integer.parseInt(st.nextToken());
+	static int l, c;
+	static char[] arr;
+	static StringBuilder sb = new StringBuilder();
 
-        arr = new char[c];
-        nums = new char[l];
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
 
-        st = new StringTokenizer(br.readLine());
-        for(int i=0; i<c; i++){
-            arr[i] = st.nextToken().charAt(0);
-        }
+		l = Integer.parseInt(st.nextToken());
+		c = Integer.parseInt(st.nextToken());
 
-        Arrays.sort(arr);
-        combi(0, 0);
+		st = new StringTokenizer(br.readLine());
+		arr = new char[c];
+		for(int i=0; i<c; i++){
+			arr[i] = st.nextToken().charAt(0);
+		}
 
-        System.out.println(sb);
-    }
+		Arrays.sort(arr);
+		dfs(0, 0, new char[l]);
 
-    static void combi(int depth, int start){
-        if(depth == l){
-            if(check(nums)){
-                for(char c : nums){
-                    sb.append(c);
-                }
-                sb.append("\n");
-            }
-            return;
-        }
+		System.out.println(sb);
+	}
 
-        for(int i = start; i < c; i++){
-            nums[depth] = arr[i];
-            combi(depth+1, i+1);
-        }
-    }
+	public static void dfs(int depth, int start, char[] result){
+		if(depth == l){
+			if(check(result)) {
+				for (char i : result) {
+					sb.append(i);
+				}
+				sb.append("\n");
+			}
+			return;
+		}
 
-    static boolean check(char[] nums){
-        int cnt = 0;
-        for(int i=0; i<l; i++){
-            for(int j=0; j<5; j++){
-                if(nums[i] == m[j]){
-                    cnt++;
-                    break;
-                }
-            }
-        }
+		for(int i=start; i<c; i++){
+			result[depth] = arr[i];
+			dfs(depth+1, i+1, result);
+		}
+	}
 
-        if(cnt >= 1 && (l-cnt) >= 2){ //모음이 1개 이상 && 자음이 2개 이상
-            return true;
-        }
-        return false;
-    }
+	public static boolean check(char[] arr){
+		int cnt = 0;
+		for(int i=0; i<l; i++){
+			if(arr[i] == 'a' || arr[i] == 'e' || arr[i] == 'i' || arr[i] == 'o' || arr[i] == 'u')
+				cnt++;
+		}
+
+		if(cnt >= 1 && (l-cnt) >= 2)
+			return true;
+		else
+			return false;
+	}
 }
