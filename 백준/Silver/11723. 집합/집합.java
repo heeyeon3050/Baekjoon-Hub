@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	  BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
       StringBuilder sb = new StringBuilder();
       int m = Integer.parseInt(br.readLine());  // 연산 수
       Set<Integer> set = new HashSet<>(); // 중복 허용 X
