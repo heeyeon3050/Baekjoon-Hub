@@ -25,6 +25,7 @@ public class Main {
 		}
 
 		dfs(0, 0);
+        
 		System.out.println(answer);
 	}
 
@@ -40,10 +41,10 @@ public class Main {
 		if(visit[x][y])
 			dfs(depth+1, sum);
 		else {
-			//자기자신만 자르는 경우
+			//현재 위치 계산
 			int num = 0;
 			visit[x][y] = true;
-			num = num*10 + arr[x][y];
+			num = arr[x][y];
 			dfs(depth+1, sum+num);
 
 			//세로로 자르는 경우

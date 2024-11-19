@@ -4,7 +4,7 @@
 
 ### 성능 요약
 
-메모리: 17156 KB, 시간: 140 ms
+메모리: 17204 KB, 시간: 120 ms
 
 ### 분류
 
@@ -12,7 +12,7 @@
 
 ### 제출 일자
 
-2024년 2월 6일 00:02:06
+2024년 11월 19일 16:40:14
 
 ### 문제 설명
 
@@ -22,7 +22,7 @@
 
 <p>아래 그림은 4×4 크기의 종이를 자른 한 가지 방법이다.</p>
 
-<p style="text-align:center"><img alt="" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/14391/1.png" style="height:253px; width:250px"></p>
+<p style="text-align:center"><img alt="" src="" style="height:253px; width:250px"></p>
 
 <p>각 조각의 합은 493 + 7160 + 23 + 58 + 9 + 45 + 91 = 7879 이다.</p>
 
