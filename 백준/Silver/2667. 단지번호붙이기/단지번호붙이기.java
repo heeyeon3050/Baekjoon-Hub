@@ -34,6 +34,7 @@ public class Main {
 				}
 			}
 		}
+        
 		sb.append(list.size()).append("\n");
 
 		Collections.sort(list);
