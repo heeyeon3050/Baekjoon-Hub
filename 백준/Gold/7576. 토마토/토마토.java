@@ -1,72 +1,82 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-	static int N, M;
-	static int map[][];
-	static boolean visit[][];
-	static int dx[] = {0, 0, 1, -1};
-	static int dy[] = {1, -1, 0, 0};
-	static int cnt = 0;
-	static Queue<int[]> queue = new LinkedList<>();
-	public static void main(String[] args) throws IOException{
-		  BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		  StringTokenizer st = new StringTokenizer(br.readLine());
-		  M = Integer.parseInt(st.nextToken());
-		  N = Integer.parseInt(st.nextToken());
-		  
-		  map = new int[N][M];
-		  visit = new boolean[N][M];
-		  for(int i=0; i<N; i++) {
-			  st = new StringTokenizer(br.readLine());
-			  for(int j=0; j<M; j++) {
-				  map[i][j] = Integer.parseInt(st.nextToken());
-				  if(map[i][j]==1) {
-					  queue.add(new int[] {i, j});
-				  }
-			  }
-		  }
-		  
-		  bfs();
-		  
-		  int max = -2;
-		  for(int i=0; i<N; i++) {
-			  for(int j=0; j<M; j++) {
-				  if(map[i][j]==0) {
-					  System.out.println(-1);
-					  return;
-				  }
-				  else
-					  max = Math.max(max, map[i][j]);
-			  }
-		  }
-		  if(max == 1)
-			  System.out.println(0);
-		  else
-			  System.out.println(max-1);
+	static class Point{
+		int x, y;
+
+		public Point(int x, int y){
+			this.x = x;
+			this.y = y;
+		}
 	}
-	
-	public static void bfs() {
-		while(!queue.isEmpty()) {
-			int now[] = queue.poll();
-			int nowX = now[0];
-			int nowY = now[1];
-			
-			for(int i=0; i<4; i++) {
-				int nextX = nowX + dx[i];
-				int nextY = nowY + dy[i];
-				
-				if(nextX>=0 && nextY>=0 && nextX<N && nextY<M) {
-					if(map[nextX][nextY]==0 || map[nextX][nextY] > map[nowX][nowY]+1) {
-						map[nextX][nextY] = map[nowX][nowY]+1;
-						queue.add(new int[] {nextX, nextY});
-					}
+
+	static int[] dx = {0, -1, 0, 1};
+	static int[] dy = {1, 0, -1, 0};
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+
+		int m = Integer.parseInt(st.nextToken());
+		int n = Integer.parseInt(st.nextToken());
+
+		int[][] arr = new int[n][m];
+		Queue<Point> queue = new ArrayDeque<>();
+		boolean flag = false;
+        
+		for(int i=0; i<n; i++){
+			st = new StringTokenizer(br.readLine());
+			for(int j=0; j<m; j++){
+				arr[i][j] = Integer.parseInt(st.nextToken());
+				if(arr[i][j] == 1){
+					queue.add(new Point(i, j));
+				} else {
+					flag = true;
 				}
 			}
 		}
+
+		if(!flag){
+			System.out.println(0);
+			return;
+		}
+
+		int day = 0;
+		while(!queue.isEmpty()){
+			int size = queue.size();
+			for(int i=0; i<size; i++){
+				Point now = queue.poll();
+
+				for(int j=0; j<4; j++){
+					int nx = now.x + dx[j];
+					int ny = now.y + dy[j];
+
+					if(nx < 0 || nx >= n || ny < 0 || ny >= m)
+						continue;
+
+					if(arr[nx][ny] == 0) {
+						arr[nx][ny] = 1;
+						queue.add(new Point(nx, ny));
+					}
+				}
+			}
+			day++;
+		}
+
+		for(int i=0; i<n; i++){
+			for(int j=0; j<m; j++){
+				if(arr[i][j] == 0){
+					System.out.println(-1);
+					return;
+				}
+			}
+		}
+
+		System.out.println(day-1);
 	}
 }
